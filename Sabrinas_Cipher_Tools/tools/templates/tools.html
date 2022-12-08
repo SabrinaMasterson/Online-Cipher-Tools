@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <title>Sabrina's Cipher Tools: Home</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+    <h1>This is the home page to my cipher tools</h1>
+    <h2>Currently, there are only the two tools available</h2>
+    <p>Here's some testing words!</p>
+
+    <h3>Password Dictionary:</h3>
+    <p>
+        This is a web-scraping tool that collects a series of similar words and phrases for password cracking.
+        It also collects a definition of the word or phrase searched. 
+        To use, the user inputs a word or phrase into the input bar, then presses search.
+        Then, python code scrapes a website called TheOneLookThesaurus.
+        It collects the definition, and the first page of releated words from each section.
+        This includes nouns, adverbs, verbs, and so on.
+        The definition can tell you things related to the word/phrase to help figure out a password.
+        And the related words/phrases can be used in other cracking tools like Hashcat.
+
+    </p>
+    <a href="http://localhost:8000/tools/passdict/">
+        <button type="button">Password Dictionary</button>
+    </a>
+    <br>
+    <h3>Cipher Encoding:</h3>
+    <p>
+        This is a series of cipher functions that can encode or decode words and phrases.
+        You place the input into the input bar, choose a cipher (or two) from the drop-down menu,
+        and then click the encode or decode button. 
+        A definition and example is given in a text box 
+        Do note that you can get a lot of nonsense if you encode an already encoded phrase, or
+        if you decode a phrase with the wrong cipher.
+    </p>
+    <p>
+        Additionally, sometimes the cipher combinations can be a bit funky. 
+        So decoding a phrase doubly encoded may not get the appropriate response.
+    </p>
+    <a href="http://localhost:8000/tools/ciphencode/">
+        <button type="button">Cipher Encoding</button>
+    </a>
+</body>
+
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <title>Sabrina's Password Dictionary</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    
+</head>
+<body>
+   
+    <h1>Password Dictionary</h1>
+    <a href="http://localhost:8000/tools/tools/">
+        <button type="button">Tools Home</button>
+    </a>
+    <br>
+    <a href="http://localhost:8000/tools/ciphencode/">
+        <button type="button">Cipher Encoder</button>
+    </a>
+    <h2>Instructions:</h2>
+    <p>
+        Here's how to use the password dicitonary: <br>
+        You input a word or phrase you want to build the dictionary with.
+        This word can't be full of numbers or nonsensical words. 
+        For example: a keysmash of "dasfasjdfksajf" won't pull anything,
+        but "spider-man" will. 
+        If the word or phrase doesn't pull anything the first time, try a second time.
+        Sometimes it does take a second search, but if it still doesn't work, 
+        you may need to change the word or phrase you are searching.
+        If your search was successful, a definition of that input will be printed onto the page,
+        and a collection of related words by section (adverbs, nouns, etc.) to help password cracking.
+        These words and phrases are without spaces so you can use them in a program like Hashcat.
+        The source of this web-scraped content is from The OneLook Thesaurus, use the link below to go to it!
+        <br><a href="https://www.onelook.com/thesaurus/">TheOneLookThesaurus</a>
+        <br> Be warned that collecting each and every word manually for password cracking from this site is difficult.
+        I would reccomend using this site for non-cracking means, like it's actual intended purpose as a thesaurus, it's a great resource for writers!
+        <br> Remember: Web-Scraping Takes Time! Give it a minute to load all of the data.
+    </p>
+    <h2>Build the Dictionary:</h2>
+    <form id="passdict" method="POST">{%csrf_token%}
+        <label for="inputd">Input:</label>
+        <input type="text" id="inputd" name="inputd"><br>
+        <button id="inputbd">Scrape</button>   
+    </form> 
+    
+    {% if data %}
+        
+        {% for key, value in data.items %}
+        <textarea rows="5" cols="50">{{value}}</textarea>
+        {% endfor %}
+    {% else %}
+        <textarea rows="5" cols="50">Here's the location for the definition.</textarea>
+        <textarea rows="5" cols="50">Here's the location for the dictionary.</textarea>
+
+    {% endif %}
+        
+</body>
+
+</html>

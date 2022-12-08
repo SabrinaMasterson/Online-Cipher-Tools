@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+    <head>
+        <title>Sabrina's Ciphers</title>
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        
+    </head>
+    <body>
+        <h1>Sabrina's Cipher Encoder</h1>
+        <a href="http://localhost:8000/tools/tools/">
+            <button type="button">Tools Home</button>
+        </a>
+        <br>
+        <a href="http://localhost:8000/tools/passdict/">
+            <button type="button">Password Dictionary</button>
+        </a>
+        <h2>Instructions: </h2>
+        <p>
+            Here's how to use the cipher tools: <br>
+            You place the text you want to encode or decode into the input bar.
+            Then, you choose the cipher(s) you want to use. 
+            Remember that you can't use Base64 to start encoding or to end decoding for the combination of ciphers.
+            This is because the functions ignore special characters because many of the ciphers can't code them.
+            <br>
+            Once the cipher(s) are chosen, you must then choose the relevant modifiers.
+            For Base64, you need to choose the base type, only 64, 32, and 16 are currently available.
+            For Caesar, you choose a number for shifting the letters, 
+            and for Affine both a shifting number and a multiplier number that must be a coprime of 26.
+            After this, you choose to encode or decode and hit submit.
+            The output to be shown in the textbox below.
+            <br>
+            If you want to see an example and explanation, 
+            just use the default options already loaded and choose if you want to encode and decode,
+            and choose a cipher (or two) and hit submit.
+
+        </p>
+        
+        <br>
+        <form method="POST">{%csrf_token%}
+            <label for="dropdown1">Cipher 1</label>
+            <select name="dropdown1" id="dropdown1">
+                <option value="None" selected>None</option>
+                <option value="Caesar">Caesar</option>
+                <option value="Affine">Affine</option>
+                <option value="Atbash">Atbash</option>
+                <option value="Base64">Base64</option>
+                <option value="Baconian">Baconian</option>
+            </select>
+
+            <label for="dropdown2">Cipher 2 (optional)</label>
+            <select name="dropdown2" id="dropdown2">
+                <option value="None" selected>None</option>
+                <option value="Caesar">Caesar</option>
+                <option value="Affine">Affine</option>
+                <option value="Atbash">Atbash</option>
+                <option value="Base64">Base64</option>
+                <option value="Baconian">Baconian</option>
+            </select>
+            <br>
+            <label for="inputc">Input:</label>
+            <input type="text" id="inputc" name="inputc" value="The quick brown fox"><br>
+
+            <input type="checkbox" class="checkoption" id="encode" name="encode" value="encode">
+            <label for="encode"> Do you want to encode text?</label><br>
+            <input type="checkbox" class="checkoption" id="decod" name="decode" value="decode">
+            <label for="decode"> Do you want to decode text?</label><br>
+               
+            <button id="inputbc" disabled="disabled">Submit</button><br>
+
+            
+            <br>
+
+            <label for="shift">Shift:</label>
+            <input type="text" id="shift" name="shift" value="3">
+            <label for="mult">Multiplier:</label>
+            <input type="text" id="mult" name="mult" value="3">
+            <label for="type">Type:</label>
+            <input type="text" id="type" name="type" value="16">
+            <br>
+        </form>
+        {% if data %}
+        
+            {% for key, value in data.items %}
+            <textarea rows="5" cols="50">{{value}}</textarea>
+            {% endfor %}
+        {% else %}
+         <textarea  rows="5" cols="50">Here's the location for the first cipher explanation.</textarea>
+         <textarea  rows="5" cols="50">Here's the location for the second cipher explanation.</textarea>
+         <textarea rows="5" cols="50">Here's the location for the encoded/decoded text.</textarea>
+        {% endif %}
+        <script>
+            $(document).ready(function(){
+                $('.checkoption').click(function() {
+                    $('.checkoption').not(this).prop('checked', false);
+                    $('#inputbc').attr("disabled",!$(this).is(":checked")); 
+                });
+            });
+            
+        </script>
+        <script>
+            $(function() {
+                $(document).on('click', '#inputbc', function(){
+                    console.log("Success");
+                });
+                //$('#btn').click(function() {
+                   // console.log("Success!");
+                //});
+            });
+        </script>
+    </body>
+</html>

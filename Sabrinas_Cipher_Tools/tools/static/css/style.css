@@ -1,0 +1,8 @@
+body {
+	background-color: lightgray;
+}
+textarea {
+	overflow-y: scroll;
+	height: 100px;
+}
+
